@@ -8,7 +8,21 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Employee.Management.styles.css" asp-append-version="true" />
 </head>
-<body class="bg-black text-white">
+
+<style>
+    .vh-100 {
+        height: 100vh;
+    }
+    .vh-90 {
+        height: 90vh;
+    }
+
+    .vh-80 {
+        height: 80vh;
+    }
+</style>
+
+<body class="bg-black text-white vh-80">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -30,7 +44,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container h-100">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
