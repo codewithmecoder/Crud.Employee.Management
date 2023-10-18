@@ -1,6 +1,6 @@
-using Employee.Management.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Employee.Management.ViewModels;
 
 namespace Employee.Management.Controllers
 {
