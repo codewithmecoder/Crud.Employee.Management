@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Employee.Management.Models.Employees;
+using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Management.Models;
 
@@ -8,4 +9,6 @@ public class DatabaseContext : DbContext
     {
         
     }
+
+    public DbSet<EmployeeModel> Employees { get; set; } = default!;
 }
