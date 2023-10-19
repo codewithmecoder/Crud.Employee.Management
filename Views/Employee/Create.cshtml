@@ -1,0 +1,30 @@
+﻿@model CreateViewModel
+@{
+    ViewData["Title"] = "Create Employee";
+}
+
+<div class="w-100">
+    <h2 class="text-success">Create new employee</h2>
+    <br />
+    
+    <form method="post" enctype="multipart/form-data" asp-controller="Employee" asp-action="Create">
+        <div class="row">
+            <div class="mb-3 col-sm-12 col-lg-6">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" asp-for="Name"/>
+                <p class="text-danger" asp-validation-for="Name"></p>
+            </div>
+            <div class="mb-3 col-sm-12 col-lg-6">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email">
+                <p class="text-danger" asp-validation-for="Email"></p>
+            </div>
+            <div class="mb-3 col-sm-12 col-lg-6">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
