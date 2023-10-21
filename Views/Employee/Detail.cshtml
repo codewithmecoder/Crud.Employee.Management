@@ -1,0 +1,68 @@
+@model Employee.Management.Models.Employees.EmployeeModel
+
+@{
+    ViewData["Title"] = "Employee Detail";
+}
+<br />
+<a class="btn btn-info" asp-action="Index" asp-controller="Employee">Back</a>
+<h3 class="mx-5 text-info text-center">Employee Detail</h3>
+<br />
+@if (Model?.Id is not null)
+{
+    <div class="">
+        
+        <div class="mb-5">
+            <img 
+                class="img-fluid rounded" 
+                style="
+                   width: 150px;
+                   height: 145px;
+                " 
+                alt="@Model.Name"
+                src="/images/employees/@Model.ProfilePhoto"/>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-12 col-lg-4 h4">Id</div>
+            <div class="col-sm-12 col-lg-8">
+                @Model.Id
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-4 h4">Name</div>
+            <div class="col-sm-12 col-lg-8">
+                @Model.Name
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-4 h4">Email</div>
+            <div class="col-sm-12 col-lg-8">
+                @Model.Email
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-4 h4">Address</div>
+            <div class="col-sm-12 col-lg-8">
+                @Model.Address
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-lg-4 h4">Phone Number</div>
+            <div class="col-sm-12 col-lg-8">
+                @Model.PhoneNumber
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-lg-4 h4">Create At</div>
+            <div class="col-sm-12 col-lg-8">
+                @Model.CreatedAt.ToString("g")
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h2 class="text-center">Employee not found!</h2>
+}

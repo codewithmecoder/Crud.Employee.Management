@@ -2,6 +2,7 @@ using Employee.Management.Models;
 using Employee.Management.Models.Employees;
 using Employee.Management.Repositories.Interfaces;
 using Employee.Management.ViewModels.Employees;
+using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Management.Repositories.Implementations;
 
@@ -49,5 +50,15 @@ public class EmployeeRepository : IEmployeeRepository
         }
 
         await transaction.CommitAsync(token);
+    }
+
+    public Task<List<EmployeeModel>> GetAsync(CancellationToken token = default)
+    {
+        return _context.Employees.ToListAsync(token);
+    }
+
+    public Task<EmployeeModel?> GetByIdAsync(int id, CancellationToken token = default)
+    {
+        return _context.Employees.FirstOrDefaultAsync(i => i.Id == id, token);
     }
 }

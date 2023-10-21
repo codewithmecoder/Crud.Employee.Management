@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Employee.Management.Models.Employees.EmployeeModel>
+
+@{
     ViewData["Title"] = "Employee";
 }
 
@@ -8,4 +10,44 @@
             <a class="btn btn-primary" asp-action="Create" asp-controller="Employee">Create</a>
         </div>
     </div>
+    <br />
+    <table class="table table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Profile</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <td>@i.Id</td>
+                <td>
+                    <img
+                        class="rounded-circle"
+                        style="
+                           width: 50px;
+                           height: 45px;
+                       " 
+                        src="/images/employees/@i.ProfilePhoto" 
+                        alt="@i.Name"/>
+                </td>
+                <td>@i.Name</td>
+                <td>@i.Email</td>
+                <td>@i.Address</td>
+                <td>@i.CreatedAt.ToString("g")</td>
+                <td class="flex-column gap-5 justify-content-between">
+                    <a asp-action="Detail" asp-route-id="@i.Id" asp-controller="Employee">
+                        <i class="cursor-pointer fa-solid fa-info-circle fa-lg text-info"></i>
+                    </a> 
+                    <i data-id="@i.Id" class="cursor-pointer fa-solid fa-pen-to-square fa-lg text-warning"></i>
+                    <i data-id="@i.Id" class="cursor-pointer fa-solid fa-trash-can fa-lg text-danger"></i>
+                </td>
+            </tr>
+            
+        }
+    </table>
 </div>

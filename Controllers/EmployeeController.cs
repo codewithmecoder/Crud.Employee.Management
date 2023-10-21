@@ -13,9 +13,10 @@ public class EmployeeController : Controller
         _repository = repository;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var employees = await _repository.GetAsync();
+        return View(employees);
     } 
     
     public IActionResult Create()
@@ -23,6 +24,12 @@ public class EmployeeController : Controller
         return View();
     }
 
+    public async Task<IActionResult> Detail(int id)
+    {
+        var employee = await _repository.GetByIdAsync(id);
+        return View(employee);
+    }
+    
     [HttpPost]
     public async Task<IActionResult> Create(CreateViewModel model)
     {
