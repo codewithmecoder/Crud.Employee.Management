@@ -11,8 +11,6 @@ public class EmployeeModel
     public string PhoneNumber { get; set; } = string.Empty;
     public string? ProfilePhoto { get; set; }
 
-    [NotMapped]
-    public IFormFile File { get; set; } = default!;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; }
 }
