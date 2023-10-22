@@ -106,4 +106,14 @@ public class EmployeeRepository : IEmployeeRepository
        await transaction.CommitAsync(token);
        return true;
     }
+
+    public async Task<bool> DeleteAsync(int id, CancellationToken token = default)
+    {
+        var employee = await GetByIdAsync(id, token);
+        if (employee is null) return false;
+
+        _context.Employees.Remove(employee);
+        await _context.SaveChangesAsync(token);
+        return true;
+    }
 }

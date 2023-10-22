@@ -74,4 +74,11 @@ public class EmployeeController : Controller
         var isUploadSuccess = await _repository.UpdateProfileImageAsync(m);
         return Ok(isUploadSuccess);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var isDeleteSuccess = await _repository.DeleteAsync(id);
+        return Ok(isDeleteSuccess);
+    }
 }

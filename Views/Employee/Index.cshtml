@@ -58,7 +58,7 @@
                         data-id="@i.Id" 
                         class="cursor-pointer fa-solid fa-trash-can fa-lg text-danger" 
                         data-bs-toggle="modal" 
-                        data-bs-target="#deleteEmployee" ></i>
+                        data-bs-target="#deleteEmployee" onclick="getEmployeeId(this)"></i>
                 </td>
             </tr>
         }
@@ -77,13 +77,15 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Yes</button>
+                <button type="button" class="btn btn-danger" id="deleteEmployeeBtn">Yes</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+
+    let emId = 0;
 
     let imageObject = {
         id: 0,
@@ -118,4 +120,18 @@
     function getFileExtension(type){
         return type.split('/')[1];
     } 
+    
+    function getEmployeeId(el) {
+      emId = parseInt($(el).data("id"));
+    }
+    
+    $(document).ready(function (){
+        $("#deleteEmployeeBtn").click(function (){
+            $.post("/Employee/Delete/" + emId, function (data){
+                if (data === true) location.reload();
+                console.log(data)
+            });
+        })
+    })
+    
 </script>
