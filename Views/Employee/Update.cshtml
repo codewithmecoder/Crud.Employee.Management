@@ -1,0 +1,42 @@
+@model UpdateEmployeeViewModel
+
+@{
+    ViewData["title"] = "Update Employee";
+}
+
+<div class="w-100 min-h-100 h-auto">
+    <h2 class="text-success">Create new employee</h2>
+    <br />
+    
+    <form method="post" enctype="multipart/form-data" asp-controller="Employee" asp-action="Update">
+        <div class="row">
+            <div class="mb-3 col-sm-12 col-lg-6">
+                <input asp-for="Id" hidden/>
+                <input asp-for="CreatedAt" hidden/>
+                
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" asp-for="Name"/>
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <div class="mb-3 col-sm-12 col-lg-6">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" asp-for="Email" id="email">
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col-sm-12 col-lg-6">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" asp-for="Address"/>
+                <span class="text-danger" asp-validation-for="Address"></span>
+            </div>
+            <div class="mb-3 col-sm-12 col-lg-6">
+                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <input type="text" asp-for="PhoneNumber" class="form-control" id="phoneNumber">
+                <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+

@@ -61,4 +61,20 @@ public class EmployeeRepository : IEmployeeRepository
     {
         return _context.Employees.FirstOrDefaultAsync(i => i.Id == id, token);
     }
+
+    public async Task<bool> UpdateAsync(UpdateEmployeeViewModel m, CancellationToken cancellationToken = default)
+    {
+        var employee = await GetByIdAsync(m.Id, cancellationToken);
+        if (employee is null) return false;
+
+        employee.Address = m.Address;
+        employee.PhoneNumber = m.PhoneNumber;
+        employee.Email = m.Email;
+        employee.Name = m.Name;
+        employee.UpdatedAt = DateTime.UtcNow;
+
+        _context.Employees.Update(employee);
+        await _context.SaveChangesAsync(cancellationToken);
+        return true;
+    }
 }

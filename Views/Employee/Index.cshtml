@@ -43,11 +43,34 @@
                     <a asp-action="Detail" asp-route-id="@i.Id" asp-controller="Employee">
                         <i class="cursor-pointer fa-solid fa-info-circle fa-lg text-info"></i>
                     </a> 
-                    <i data-id="@i.Id" class="cursor-pointer fa-solid fa-pen-to-square fa-lg text-warning"></i>
-                    <i data-id="@i.Id" class="cursor-pointer fa-solid fa-trash-can fa-lg text-danger"></i>
+                    <a asp-action="Update" asp-controller="Employee" asp-route-id="@i.Id" class="my-3">
+                        <i data-id="@i.Id" class="cursor-pointer fa-solid fa-pen-to-square fa-lg text-warning"></i>
+                    </a>
+                    <i 
+                        data-id="@i.Id" 
+                        class="cursor-pointer fa-solid fa-trash-can fa-lg text-danger" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#deleteEmployee" ></i>
                 </td>
             </tr>
-            
         }
     </table>
+</div>
+
+<div class="modal fade" id="deleteEmployee" tabindex="-1" aria-labelledby="modalDeleteEmployee" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Employee</h5>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure, you want to complete this operation?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Yes</button>
+      </div>
+    </div>
+  </div>
 </div>

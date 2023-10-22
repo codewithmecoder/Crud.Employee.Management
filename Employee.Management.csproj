@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Employees\" />
     <Folder Include="wwwroot\images\employees\" />
     <Folder Include="wwwroot\lib\webfonts\" />
   </ItemGroup>

@@ -24,6 +24,27 @@ public class EmployeeController : Controller
         return View();
     }
 
+    public async Task<IActionResult> Update(int id)
+    {
+        var employee = await _repository.GetByIdAsync(id);
+
+        if (employee is null) return View();
+        
+        // var imageBytes = await System.IO.File.ReadAllBytesAsync($"{_environment.WebRootPath}/images/employees/{employee.ProfilePhoto}");
+        //
+        // using var imageStream = new MemoryStream(imageBytes);
+        return View(new UpdateEmployeeViewModel
+        {
+            // File = new FormFile(imageStream, 0, imageBytes.Length, employee.ProfilePhoto ?? "", employee.ProfilePhoto ?? ""),
+            PhoneNumber = employee.PhoneNumber,
+            CreatedAt = employee.CreatedAt,
+            Email = employee.Email,
+            Name = employee.Name,
+            Address = employee.Address,
+            Id = employee.Id
+        });
+    }
+
     public async Task<IActionResult> Detail(int id)
     {
         var employee = await _repository.GetByIdAsync(id);
@@ -36,5 +57,14 @@ public class EmployeeController : Controller
         if (!ModelState.IsValid) return View(model);
         await _repository.CreateEmployeeAsync(model);
         return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Update(UpdateEmployeeViewModel m)
+    {
+        if (!ModelState.IsValid) return View(m);
+        var isUpdateSuccess = await _repository.UpdateAsync(m);
+        if (isUpdateSuccess) return RedirectToAction("Index");
+        return View(m);
     }
 }
