@@ -77,4 +77,33 @@ public class EmployeeRepository : IEmployeeRepository
         await _context.SaveChangesAsync(cancellationToken);
         return true;
     }
+
+    public async Task<bool> UpdateProfileImageAsync(UpdateProfileImageViewModel m, CancellationToken token = default)
+    {
+        var employee = await GetByIdAsync(m.Id, token);
+        if (employee is null) return false;
+        
+       var bytes = Convert.FromBase64String(m.FileContent);
+       var contents = new StreamContent(new MemoryStream(bytes));
+       
+       var wwwrootPath = _environment.WebRootPath;
+       var fileName = $"{Guid.NewGuid().ToString().Replace("-", "")}-{m.FileName}";
+       var empPath = Path.Join(wwwrootPath, $@"images\employees\{fileName}");
+       
+       await using var transaction = await _context.Database.BeginTransactionAsync(token);
+
+       employee.ProfilePhoto = fileName;
+       
+       _context.Employees.Update(employee);
+       var isSuccess = await _context.SaveChangesAsync(token);
+       
+       if (isSuccess == 1)
+       {
+           await using var fileStream = new FileStream(empPath, FileMode.Create, FileAccess.Write);
+           await contents.CopyToAsync(fileStream, token);
+       }
+
+       await transaction.CommitAsync(token);
+       return true;
+    }
 }

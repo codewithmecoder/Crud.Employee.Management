@@ -4,7 +4,7 @@
     ViewData["Title"] = "Employee";
 }
 
-<div>
+<div class="container-fluid">
     <div class="row">
         <div class="row-cols-3">
             <a class="btn btn-primary" asp-action="Create" asp-controller="Employee">Create</a>
@@ -26,14 +26,22 @@
             <tr>
                 <td>@i.Id</td>
                 <td>
-                    <img
-                        class="rounded-circle"
-                        style="
+                    <div class="position-relative">
+                        <label for="image-@i.Id">
+                            <img
+                                class="rounded-circle cursor-pointer"
+                                style="
                            width: 50px;
                            height: 45px;
                        " 
-                        src="/images/employees/@i.ProfilePhoto" 
-                        alt="@i.Name"/>
+                                src="/images/employees/@i.ProfilePhoto" 
+                                alt="@i.Name" id="profileImage-@i.Id"/>
+                        </label>
+                        <input 
+                            data-id="@i.Id" type="file" id="image-@i.Id" 
+                            style="width: 0; height: 0; top: 10px; left: 20px; z-index: -2"
+                            onchange="selectNewProfile(this)"/>
+                    </div>
                 </td>
                 <td>@i.Name</td>
                 <td>@i.Email</td>
@@ -58,19 +66,56 @@
 </div>
 
 <div class="modal fade" id="deleteEmployee" tabindex="-1" aria-labelledby="modalDeleteEmployee" aria-hidden="true" >
-  <div class="modal-dialog">
-    <div class="modal-content bg-dark">
-      <div class="modal-header">
-        <h5 class="modal-title">Delete Employee</h5>
-        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure, you want to complete this operation?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Yes</button>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Employee</h5>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure, you want to complete this operation?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
+<script>
+
+    let imageObject = {
+        id: 0,
+        type: "",
+        fileExtension: "",
+        fileContent: "",
+        fileName: "",
+    };
+    
+    function selectNewProfile(e){
+        const id = $(e).data("id");
+        imageObject.id = id;
+        const image = $(`#profileImage-${id}`)
+        const file = e.files[0];
+        console.log(file);
+        if (file){
+            
+            imageObject.fileName = file.name;
+            imageObject.type = file.type;
+            const reader = new FileReader; 
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+                const base64Content = _file.target.result;
+                image.attr("src", base64Content);
+                imageObject.fileExtension = getFileExtension(imageObject.type);
+                imageObject.fileContent = base64Content.split(",")[1];
+                $.post("Employee/UpdateProfileImage", imageObject);
+            }
+        }
+    }
+   
+    function getFileExtension(type){
+        return type.split('/')[1];
+    } 
+</script>

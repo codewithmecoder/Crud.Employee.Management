@@ -51,3 +51,7 @@ _
 /ViewModels/Employees/UpdateEmployeeViewModel.cs,4\5\456a31e2655bf50469f9ce32ae84d83becbb48af
 L
 Views/Employee/Update.cshtml,6\e\6e2a85207d6be6271c9784e647bc8a5b0081b813
+c
+3ViewModels/Employees/UpdateProfileImageViewModel.cs,1\e\1ed30db6378b2bf2130ca70f1a1d66ea5fcef4da
+G
+Views/Home/Index.cshtml,f\0\f0c3a7a5b6c77c1b1db0ba1ad357b9192ff5f2eb

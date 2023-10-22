@@ -67,4 +67,11 @@ public class EmployeeController : Controller
         if (isUpdateSuccess) return RedirectToAction("Index");
         return View(m);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateProfileImage(UpdateProfileImageViewModel m)
+    {
+        var isUploadSuccess = await _repository.UpdateProfileImageAsync(m);
+        return Ok(isUploadSuccess);
+    }
 }
